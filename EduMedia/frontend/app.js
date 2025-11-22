@@ -1627,7 +1627,7 @@ async function undoEditPost(postId, oldContent) {
 // ========== AUTHENTICATION ==========
 
 // API Base URL
-const API_URL = 'http://localhost:3003/api';
+const API_URL = 'https://edumedia-production.up.railway.app/api';
 
 async function handleLogin(e) {
     e.preventDefault();

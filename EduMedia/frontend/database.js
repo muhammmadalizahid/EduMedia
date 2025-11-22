@@ -339,7 +339,7 @@ const Database = {
         // Use backend endpoint that handles reciprocal deletion
         const token = localStorage.getItem('authToken');
         
-        const response = await fetch(`http://localhost:3003/api/friends/remove/${friendshipId}`, {
+        const response = await fetch(`https://edumedia-production.up.railway.app/api/friends/remove/${friendshipId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`
