@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# Supabase credentials (if stored locally)
+supabase-credentials.json
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+backend/data/*.json
+backend/data/*.txt
+*.log
+
+# Build files (if any)
+dist/
+build/

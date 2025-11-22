@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMedia - Academic Social Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login/Signup Screen (shown initially) -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>EduMedia</h1>
+                <p>Academic Social Platform</p>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Welcome Back</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Log In</button>
+                    </div>
+                </form>
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" id="showSignup">Create Account</a>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <h2>Create Account</h2>
+                <form id="signupFormElement">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="At least 6 characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupBio">Bio (Optional)</label>
+                        <textarea id="signupBio" rows="3" placeholder="Tell us about yourself"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Create Account</button>
+                    </div>
+                </form>
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" id="showLogin">Log In</a>
+                </p>
+            </div>
+
+            <!-- Error/Success Messages -->
+            <div id="authMessage" class="auth-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Main App (hidden initially) -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Header Navigation -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>EduMedia</h1>
+                        <span class="tagline">Academic Social Platform</span>
+                    </div>
+                    <!-- Back Button (Navigation Stack) -->
+                    <button id="backBtn" class="back-btn" style="display: none;" title="Go back">
+                        <span class="back-icon">←</span>
+                        <span class="back-text">Back</span>
+                    </button>
+                    <nav class="main-nav">
+                        <ul>
+                            <li><a href="#" data-page="feed" class="nav-link active">Feed</a></li>
+                            <li><a href="#" data-page="profile" class="nav-link">Profile</a></li>
+                            <li><a href="#" data-page="friends" class="nav-link">Friends</a></li>
+                            <li><a href="#" data-page="history" class="nav-link">History</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header-actions">
+                        <button id="logoutBtn" class="btn-icon" title="Logout">Logout</button>
+                        <div class="user-info">
+                            <span id="currentUserName">User</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Feed Page -->
+            <section id="feedPage" class="page active">
+                <div class="content-grid">
+                    <!-- Left Sidebar - Create Post & Filters -->
+                    <aside class="sidebar-left">
+                        <!-- Create Post Card -->
+                        <div class="card create-post-card">
+                            <h3>Create Post</h3>
+                            <form id="createPostForm">
+                                <textarea id="postContent" placeholder="Share your thoughts..." rows="4" required></textarea>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary">Post</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Search & Sort -->
+                        <div class="card filter-card">
+                            <h3>Filter Feed</h3>
+                            <input type="text" id="searchPosts" placeholder="Search posts..." class="search-input">
+                            <div class="sort-options">
+                                <label for="sortPosts">Sort by:</label>
+                                <select id="sortPosts" class="sort-select">
+                                    <option value="newest">Newest First</option>
+                                    <option value="oldest">Oldest First</option>
+                                    <option value="mostLiked">Most Liked</option>
+                                </select>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Feed Area -->
+                    <div class="feed-container">
+                        <h2>Your Feed</h2>
+                        <div id="postsFeed" class="posts-feed">
+                            <!-- Posts will be dynamically inserted here -->
+                        </div>
+                        <div id="emptyFeed" class="empty-state" style="display: none;">
+                            <p>No posts yet. Be the first to share something!</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar - Stats -->
+                    <aside class="sidebar-right">
+                        <div class="card stats-card">
+                            <h3>Statistics</h3>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Posts</span>
+                                <span class="stat-value" id="totalPosts">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Your Posts</span>
+                                <span class="stat-value" id="userPosts">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Friends</span>
+                                <span class="stat-value" id="totalFriends">0</span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Profile Page -->
+            <section id="profilePage" class="page">
+                <div class="profile-container">
+                    <div class="card profile-card">
+                        <h2>My Profile</h2>
+                        <div id="profileView" class="profile-view">
+                            <div class="profile-avatar">
+                                <div class="avatar-circle">
+                                    <span id="avatarInitials">JD</span>
+                                </div>
+                            </div>
+                            <div class="profile-info">
+                                <h3 id="profileName">John Doe</h3>
+                                <p id="profileEmail">john.doe@example.com</p>
+                                <p id="profileBio">Student | Learning Data Structures</p>
+                                <button id="editProfileBtn" class="btn-secondary">Edit Profile</button>
+                            </div>
+                        </div>
+                        <form id="profileEditForm" class="profile-edit" style="display: none;">
+                            <div class="form-group">
+                                <label for="editName">Name</label>
+                                <input type="text" id="editName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editEmail">Email</label>
+                                <input type="email" id="editEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editBio">Bio</label>
+                                <textarea id="editBio" rows="3"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Save Changes</button>
+                                <button type="button" id="cancelEditBtn" class="btn-secondary">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- My Posts Section -->
+                    <div class="card my-posts-card">
+                        <h2>My Posts</h2>
+                        <div id="myPostsList" class="my-posts-list">
+                            <!-- Posts will be loaded here -->
+                        </div>
+                        <div id="myPostsEmpty" class="empty-state" style="display: none;">
+                            <p>📝 You haven't created any posts yet.</p>
+                            <p>Go to the Feed page to create your first post!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Friends Page -->
+            <section id="friendsPage" class="page">
+                <div class="friends-container">
+                    <!-- Pending Friend Requests Card -->
+                    <div class="card" id="pendingRequestsCard">
+                        <div class="card-header">
+                            <h2>Pending Friend Requests</h2>
+                            <span class="badge" id="pendingRequestsCount">0</span>
+                        </div>
+                        
+                        <div id="pendingRequestsList" class="pending-requests-list">
+                            <!-- Pending requests will be dynamically inserted here -->
+                        </div>
+                        
+                        <div id="emptyPendingRequests" class="empty-state" style="display: none;">
+                            <p>No pending friend requests</p>
+                        </div>
+                    </div>
+
+                    <!-- My Friends Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>My Friends</h2>
+                            <button id="addFriendBtn" class="btn-primary">Send Friend Request</button>
+                        </div>
+                        
+                        <!-- Send Friend Request Form (Updated to use email) -->
+                        <form id="addFriendForm" class="add-friend-form" style="display: none;">
+                            <div class="form-group">
+                                <label for="friendEmail">Friend's Email</label>
+                                <input 
+                                    type="email" 
+                                    id="friendEmail" 
+                                    placeholder="Enter friend's email address" 
+                                    required
+                                >
+                                <span class="form-hint">Enter the email address of the person you want to add</span>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Send Request</button>
+                                <button type="button" id="cancelAddFriendBtn" class="btn-secondary">Cancel</button>
+                            </div>
+                            
+                            <div id="friendRequestMessage" class="form-message"></div>
+                        </form>
+
+                        <!-- Search Friends -->
+                        <div class="search-section">
+                            <input type="text" id="searchFriends" placeholder="Search friends..." class="search-input">
+                            <select id="sortFriends" class="sort-select">
+                                <option value="name-asc">Name (A-Z)</option>
+                                <option value="name-desc">Name (Z-A)</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+                        </div>
+
+                        <!-- Friends List -->
+                        <div id="friendsList" class="friends-list">
+                            <!-- Friends will be dynamically inserted here -->
+                        </div>
+                        <div id="emptyFriends" class="empty-state" style="display: none;">
+                            <p>No friends yet. Send a friend request to get started!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Page -->
+            <section id="historyPage" class="page">
+                <div class="history-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Browsing History</h2>
+                            <button id="clearHistoryBtn" class="btn-secondary">Clear History</button>
+                        </div>
+                        <div id="historyList" class="history-list">
+                            <!-- History items will be dynamically inserted here -->
+                        </div>
+                        <div id="emptyHistory" class="empty-state hidden">
+                            <p>No browsing history yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 EduMedia - Academic DSA Project</p>
+        </div>
+    </footer>
+
+    <!-- Modal for Post Details/Comments -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modalPostContent" class="modal-post">
+                <!-- Post content will be inserted here -->
+            </div>
+            <div class="comments-section">
+                <h3>Comments</h3>
+                <form id="addCommentForm" class="comment-form">
+                    <input type="text" id="commentInput" placeholder="Add a comment..." required>
+                    <button type="submit" class="btn-primary">Comment</button>
+                </form>
+                <div id="commentsList" class="comments-list">
+                    <!-- Comments will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Post Modal -->
+    <div id="editPostModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Edit Post</h3>
+            <form id="editPostForm">
+                <label for="editPostContent">Edit post</label>
+                <textarea id="editPostContent" rows="4" required placeholder="Edit your post..." title="Edit your post content"></textarea>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" class="btn-secondary modal-close">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <h3>Delete Post</h3>
+            <p>Are you sure you want to delete this post? You can undo this action.</p>
+            <div class="form-actions">
+                <button id="confirmDeleteBtn" class="btn-primary">Delete</button>
+                <button id="cancelDeleteBtn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutConfirmModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <h3>Logout</h3>
+            <p>Are you sure you want to log out?</p>
+            <div class="form-actions">
+                <button id="confirmLogoutBtn" class="btn-primary">Logout</button>
+                <button id="cancelLogoutBtn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Undo -->
+    <div id="undoToast" class="undo-toast" style="display: none;">
+        <div class="toast-content" style="align-items: center;">
+            <span class="toast-icon">✓</span>
+            <span id="toastMessage" class="toast-message">Action completed</span>
+            <button id="toastUndoBtn" class="toast-undo-btn">↶ Undo</button>
+            <button id="toastCloseBtn" class="toast-close-btn">✕</button>
+        </div>
+    </div>
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Navigation Stack (DSA Implementation) -->
+    <script src="navigationStack.js"></script>
+    <!-- Database Integration -->
+    <script src="database.js"></script>
+    <!-- Main App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+Hello Claude,
+
+We are going to implement the **frontend** for the EduMedia project. Your task is to create a fully functional, minimalistic, modern frontend using **HTML, CSS, and basic JavaScript**. The frontend should be fully responsive and work well on all common desktop and mobile browsers.
+
+---
+
+### Requirements
+
+**Project Title:** EduMedia  
+**Purpose:** Academic DSA project simulating a social media system.
+
+**Key Requirements for Frontend:**
+1. The frontend must have pages and UI elements to support **all five modules**:
+   - User Management
+   - Post Management
+   - Feed Management / Core DS Logic
+   - Browsing History
+   - Search & Sorting
+
+2. The UI should allow users to:
+   - Create, view, and edit their profile
+   - View a feed of posts (FIFO)
+   - Add, edit, delete, like/unlike posts
+   - Comment on posts
+   - Navigate feed and perform undo operations (stack-based)
+   - Search posts and friends
+   - Sort feed and friend list
+
+3. The design should be:
+   - Minimalistic but modern
+   - Clean layout with readable fonts and spacing
+   - Simple navigation (menu bar or sidebar)
+   - Fully responsive (desktop + tablet + mobile)
+   - Functional without any backend yet (use **mock JS data structures** to simulate feed, posts, and users for frontend testing)
+
+---
+
+### Technical Instructions
+
+1. **HTML:**
+   - Create a main `index.html` file
+   - Include semantic elements (`header`, `nav`, `main`, `section`, `footer`)
+   - Include placeholders for:
+     - User profile
+     - Post feed
+     - Post creation/editing
+     - Comments
+     - Friends list
+     - Search bar
+     - Sorting buttons
+
+2. **CSS:**
+   - Use `style.css` for all styles
+   - Make it visually clean with neutral colors
+   - Ensure responsive layout (media queries for small, medium, and large screens)
+   - Style buttons, forms, and feed items clearly
+   - Highlight active elements (e.g., selected post or friend)
+   - Maintain consistent spacing, margins, and fonts
+
+3. **JavaScript (`app.js`):**
+   - Use JS **only for frontend behavior**, including:
+     - Displaying posts (simulate a queue with JS array)
+     - Adding/editing/deleting posts
+     - Liking/unliking posts
+     - Commenting on posts
+     - Search functionality (filter posts or friends by keyword)
+     - Sorting feed and friends (simple JS sort on arrays)
+     - Navigation tracking for “Back” / Undo actions (simulate stack behavior)
+   - You may use mock data objects to represent users, posts, friends, and comments
+   - Ensure all frontend logic works **without the backend**, so we can later integrate Supabase easily
+
+4. **General Guidelines:**
+   - Keep code modular: separate functions for post management, feed management, history, search/sort
+   - Use event listeners properly for buttons and forms
+   - Keep naming consistent for IDs and classes
+   - Include comments explaining which parts simulate data structures (Queue, Stack, Linked List)
+   - Ensure the frontend does **not break** if there are no posts or friends
+
+---
+
+### Deliverables (Frontend)
+
+- `frontend/index.html`
+- `frontend/style.css`
+- `frontend/app.js`  
+- Fully functional simulation of posts, feed, friends, search, sort, and undo  
+- Cross-browser compatible (Chrome, Firefox, Edge, Safari)  
+- Modern, minimalistic, responsive UI  
+
+---
+
+**Important Notes for You (Claude):**
+- Focus on **frontend-only behavior** in this prompt; backend integration will come later.
+- Use **mock JavaScript data** to simulate DSA logic (Queue for feed, Stack for history, Linked List for friends)
+- Make it **ready for integration** with Supabase later
+- Keep it simple but visually clean and usable
+
+---
+
+Once done, the frontend should fully simulate all modules in a way that a user can test DSA operations directly in the browser.
+
